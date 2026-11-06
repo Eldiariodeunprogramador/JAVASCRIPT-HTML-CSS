@@ -50,6 +50,17 @@ function calcularPresupuesto() {
         return;
     }
 
+    // Mostrar una alerta con los valores ingresados
+    alert(
+        "RESUMEN DEL PRESUPUESTO\n\n" +
+        "Número de invitados: " + invitados + "\n" +
+        "Costo de comida por invitado: " + costoComida + "\n" +
+        "Costo de bebida por invitado: " + costoBebida + "\n" +
+        "Costo de decoración: " + decoracion + "\n" +
+        "Costo de música: " + musica + "\n" +
+        "Porcentaje de propina: " + porcentajePropina + "%"
+    );
+
     // Calcular el costo total de comida
     let comidaTotal = invitados * costoComida;
 
