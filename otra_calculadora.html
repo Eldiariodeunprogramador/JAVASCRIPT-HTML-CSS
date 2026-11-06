@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/otra_calculadora.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora básica</title>
+
+   
+</head>
+
+<body>
+
+    <div class="calculadora">
+
+        <input type="text" id="pantalla" value="0" readonly>
+
+        <div class="botones">
+
+            <button class="borrar" onclick="limpiar()">C</button>
+            <button onclick="agregar('(')">(</button>
+            <button onclick="agregar(')')">)</button>
+            <button class="operador" onclick="agregar('/')">÷</button>
+
+            <button onclick="agregar('7')">7</button>
+            <button onclick="agregar('8')">8</button>
+            <button onclick="agregar('9')">9</button>
+            <button class="operador" onclick="agregar('*')">×</button>
+
+            <button onclick="agregar('4')">4</button>
+            <button onclick="agregar('5')">5</button>
+            <button onclick="agregar('6')">6</button>
+            <button class="operador" onclick="agregar('-')">-</button>
+
+            <button onclick="agregar('1')">1</button>
+            <button onclick="agregar('2')">2</button>
+            <button onclick="agregar('3')">3</button>
+            <button class="operador" onclick="agregar('+')">+</button>
+
+            <button onclick="agregar('0')">0</button>
+            <button onclick="agregar('.')">.</button>
+            <button onclick="borrarUltimo()">⌫</button>
+            <button class="igual" onclick="calcular()">=</button>
+
+        </div><br>
+        <a href="index.html">regresar a inicio</a>
+    </div>
+
+    <script>
+
+        let expresion = "";
+
+        function agregar(valor) {
+            expresion += valor;
+            document.getElementById("pantalla").value = expresion;
+        }
+
+        function limpiar() {
+            expresion = "";
+            document.getElementById("pantalla").value = "0";
+        }
+
+        function borrarUltimo() {
+            expresion = expresion.slice(0, -1);
+            document.getElementById("pantalla").value =
+                expresion || "0";
+        }
+
+        function calcular() {
+            try {
+                // Validar que solo existan caracteres matemáticos
+                if (!/^[0-9+\-*/().\s]+$/.test(expresion)) {
+                    throw new Error("Expresión inválida");
+                }
+
+                let resultado = Function(
+                    '"use strict"; return (' + expresion + ')'
+                )();
+
+                if (!Number.isFinite(resultado)) {
+                    throw new Error("Resultado inválido");
+                }
+
+                expresion = String(resultado);
+
+                document.getElementById("pantalla").value =
+                    expresion;
+
+            } catch (error) {
+                document.getElementById("pantalla").value = "Error";
+                expresion = "";
+            }
+        }
+
+    </script>
+
+</body>
+</html>
